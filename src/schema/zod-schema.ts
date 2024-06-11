@@ -10,7 +10,7 @@ export const LoginSchema = z.object({
       required_error: "Provide a password!",
     })
     .min(4, { message: "Password must be between 4 and 16 characters!" })
-    .max(6, {
+    .max(16, {
       message: "Password must be between 4 and 16 characters!",
     }),
 });

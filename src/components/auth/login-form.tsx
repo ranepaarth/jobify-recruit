@@ -1,5 +1,6 @@
 "use client";
 
+import { loginAction } from "@/actions/login";
 import {
   Form,
   FormControl,
@@ -12,19 +13,32 @@ import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/schema/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CardWrapper from "../card-wrapper";
+import FormError from "../form-error";
+import FormSuccess from "../form-success";
 import { Button } from "../ui/button";
 import FormButton from "./form-button";
 
 const LoginForm = () => {
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string>("");
+  const [isPending, startTransition] = useTransition();
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {};
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    startTransition(() => {
+      loginAction(values).then((data: any) => {
+        setError(data?.error);
+        setSuccess(data?.success as string);
+      });
+    });
+  };
 
   return (
     <CardWrapper
@@ -57,13 +71,15 @@ const LoginForm = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="******" {...field} />
+                      <Input placeholder="******" {...field} type="password" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <FormButton buttonLabel="Create account" isPending={false} />
+              <FormError error={error as string} />
+              <FormSuccess success={success} />
+              <FormButton buttonLabel="Login" isPending={isPending} />
             </div>
           </form>
           <Button variant={"link"}>
