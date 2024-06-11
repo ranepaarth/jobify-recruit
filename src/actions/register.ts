@@ -1,6 +1,7 @@
 "use server";
 
-import { prisma } from "@/lib/db";
+import { getUserByEmail } from "@/lib/db-users";
+import { prisma } from "@/lib/prisma";
 import { RegisterSchema } from "@/schema/zod-schema";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
@@ -8,25 +9,21 @@ import { z } from "zod";
 export const registerAction = async (
   values: z.infer<typeof RegisterSchema>
 ) => {
-  const validatedForm = RegisterSchema.safeParse(values);
+  const validatedFields = RegisterSchema.safeParse(values);
 
-  if (!validatedForm.success) {
+  if (!validatedFields.success) {
     return {
       error: "Invalid fields!",
     };
   }
 
-  const { email, password, name } = validatedForm.data;
+  const { email, name, password } = validatedFields.data;
 
-  const existingUser = await prisma.user.findFirst({
-    where: {
-      email,
-    },
-  });
+  const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
     return {
-      error: "Email already exists!",
+      error: "Email already taken!",
     };
   }
 
@@ -42,11 +39,11 @@ export const registerAction = async (
 
   if (!user) {
     return {
-      error: "Something went wrong while creating your account!",
+      error: "Error occurred while creating your account!",
     };
   }
 
   return {
-    success: "Account created Successfully!",
+    success: "Account created successfully!",
   };
 };
