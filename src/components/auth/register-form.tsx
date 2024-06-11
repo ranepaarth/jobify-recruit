@@ -1,4 +1,5 @@
 "use client";
+import { registerAction } from "@/actions/register";
 import {
   Form,
   FormControl,
@@ -10,18 +11,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { RegisterSchema } from "@/schema/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
-import React from "react";
+import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CardWrapper from "../card-wrapper";
+import FormError from "../form-error";
+import FormSuccess from "../form-success";
 import FormButton from "./form-button";
 const RegisterForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string>("");
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {};
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+    console.log(values);
+    startTransition(() => {
+      registerAction(values).then((data) => {
+        setError(data.error);
+        setSuccess(data?.success as string);
+      });
+    });
+  };
 
   return (
     <CardWrapper
@@ -66,13 +79,15 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="******" {...field} />
+                    <Input placeholder="******" {...field} type="password" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormButton buttonLabel="Create account" isPending={false} />
+            <FormSuccess success={success as string} />
+            <FormError error={error as string} />
+            <FormButton buttonLabel="Create account" isPending={isPending} />
           </div>
         </form>
       </Form>
