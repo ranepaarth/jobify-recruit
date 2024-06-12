@@ -16,8 +16,9 @@ interface CardWrapperProps {
   children: React.ReactNode;
   formLabel: string;
   formDesc: string;
-  formFooterLabel: string;
-  formFooterHref: string;
+  formFooterLabel?: string;
+  formFooterHref?: string;
+  showFooter?: boolean;
 }
 
 const CardWrapper = ({
@@ -26,19 +27,22 @@ const CardWrapper = ({
   formFooterHref,
   formFooterLabel,
   formLabel,
+  showFooter = true,
 }: CardWrapperProps) => {
   return (
-    <Card>
+    <Card className="w-fit shadow-md">
       <CardHeader>
         <CardTitle>{formLabel}</CardTitle>
         <CardDescription>{formDesc}</CardDescription>
       </CardHeader>
       <CardContent>{children}</CardContent>
-      <CardFooter>
-        <Button variant="link" asChild>
-          <Link href={formFooterHref}>{formFooterLabel}</Link>
-        </Button>
-      </CardFooter>
+      {showFooter && (
+        <CardFooter>
+          <Button variant="link" asChild>
+            <Link href={formFooterHref as string}>{formFooterLabel}</Link>
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 };
