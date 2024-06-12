@@ -29,6 +29,10 @@ const LoginForm = () => {
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
@@ -48,44 +52,51 @@ const LoginForm = () => {
       formFooterLabel="Create account"
     >
       <Form {...form}>
-        <Form {...form}>
-          <form action="" onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Email address" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input placeholder="******" {...field} type="password" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormError error={error as string} />
-              <FormSuccess success={success} />
-              <FormButton buttonLabel="Login" isPending={isPending} />
-            </div>
-          </form>
-          <Button variant={"link"}>
-            <Link href={"/forgot-password"}>Forgot Password</Link>
-          </Button>
-        </Form>
+        <form action="" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="space-y-4">
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Email address"
+                      {...field}
+                      {...form.register("email")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="******"
+                      {...field}
+                      type="password"
+                      {...form.register("password")}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormError error={error as string} />
+            <FormSuccess success={success} />
+            <FormButton buttonLabel="Login" isPending={isPending} />
+          </div>
+        </form>
+        <Button variant={"link"}>
+          <Link href={"/forgot-password"}>Forgot Password</Link>
+        </Button>
       </Form>
     </CardWrapper>
   );

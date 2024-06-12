@@ -24,6 +24,11 @@ const RegisterForm = () => {
   const [success, setSuccess] = useState<string>("");
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
   });
 
   const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
@@ -53,7 +58,11 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input
+                      placeholder="John Doe"
+                      {...field}
+                      {...form.register("name")}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -66,7 +75,11 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email address" {...field} />
+                    <Input
+                      placeholder="Email address"
+                      {...field}
+                      {...form.register("email")}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -79,7 +92,12 @@ const RegisterForm = () => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="******" {...field} type="password" />
+                    <Input
+                      placeholder="******"
+                      {...field}
+                      type="password"
+                      {...form.register("password")}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
