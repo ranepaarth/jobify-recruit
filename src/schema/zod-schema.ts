@@ -29,3 +29,61 @@ export const RegisterSchema = z.object({
       message: "Password must be between 4 and 16 characters!",
     }),
 });
+
+export const CreateCategorySchema = z.object({
+  name: z
+    .string({
+      required_error: "Provide a Job category!",
+    })
+    .min(4, { message: "Job category must be at least 4 characters long!" }),
+});
+
+export const CreateJobPostSchema = z.object({
+  companyName: z
+    .string({
+      required_error: "Company name cannot be empty",
+    })
+    .min(4, {
+      message: "Company name must be at least 4 characters long",
+    }),
+  title: z
+    .string({
+      required_error: "Provide a job title",
+    })
+    .min(1, {
+      message: "Provide a job title",
+    }),
+  companyDesc: z
+    .string({
+      required_error: "Describe the company in brief",
+    })
+    .min(4, {
+      message: "Describe the company in brief",
+    }),
+  jobDesc: z
+    .string({
+      required_error: "Provide more insights about the job",
+    })
+    .min(4, {
+      message: "Provide more insights about the job",
+    }),
+  category: z.string({
+    required_error: "",
+  }),
+  type: z.string({
+    required_error: "Select a Job type",
+  }),
+  salary: z.string({
+    required_error: "",
+  }).min(4,{
+    message:"Provide the salary for this job"
+  }),
+  skills: z.string({
+    required_error: "",
+  }).min(4,{
+    message:"Provide relevant skills (Comma seperated)"
+  }),
+  experience: z.string({
+    required_error: "",
+  }),
+});
