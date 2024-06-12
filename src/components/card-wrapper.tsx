@@ -30,7 +30,7 @@ const CardWrapper = ({
   showFooter = true,
 }: CardWrapperProps) => {
   return (
-    <Card className="w-fit shadow-md">
+    <Card className="w-full shadow-md">
       <CardHeader>
         <CardTitle>{formLabel}</CardTitle>
         <CardDescription>{formDesc}</CardDescription>
