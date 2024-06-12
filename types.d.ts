@@ -11,3 +11,10 @@ declare module "next-auth" {
     user: ExtendedUser;
   }
 }
+
+type Category = {
+  id: string;
+  name: string;
+};
+
+type CategoryListType = Category[];
