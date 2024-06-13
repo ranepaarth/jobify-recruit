@@ -8,7 +8,7 @@ type CategoryListProps = {
 
 const CategoryList = ({ categories }: CategoryListProps) => {
   return (
-    <div className="grid grid-cols-2 gap-4 mt-10 sm:grid-cols-3 md:grid-cols-4">
+    <div className="flex items-center flex-wrap gap-4 mt-4 border-t pt-4">
       {categories.map((category) => (
         <SingleCategory category={category} key={category.id} />
       ))}
