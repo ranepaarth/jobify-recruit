@@ -26,6 +26,7 @@ model User {
   emailVerified DateTime?
   image         String?
   role          String    @default("USER")
+  resumeUrl     String?   @default("")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
