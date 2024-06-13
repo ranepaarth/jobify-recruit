@@ -45,13 +45,18 @@ const CreateCategoryForm = () => {
     setSuccess("");
     startTransition(() => {
       createCategoryAction(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-        setOpen(false);
-        form.reset();
-        setOpen(false);
-        setError("");
-        setSuccess("");
+        if (data.error) {
+          setError(data.error);
+          setOpen(true);
+          console.log(data);
+        }
+        if (data.success) {
+          setSuccess(data.success);
+          form.reset();
+          setOpen(false);
+          setError("");
+          setSuccess("");
+        }
       });
     });
   };

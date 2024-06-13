@@ -18,6 +18,18 @@ export const createCategoryAction = async (
 
   const { name } = validatedFields.data;
 
+  const existingCategory = await prisma.jobCategory.findFirst({
+    where:{
+      name
+    }
+  })
+
+  if(existingCategory){
+    return {
+      error:`${name} category already exists!`
+    }
+  }
+
   const category = await prisma.jobCategory.create({
     data: {
       name,
