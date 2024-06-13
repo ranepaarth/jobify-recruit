@@ -10,6 +10,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       if (!session.user || !token.sub) return session;
       session.user.role = token.role;
       session.user.id = token.sub;
+      const user = await getUserById(token.sub);
+
+      session.user.resumeUrl = user?.resumeUrl as string;
       return session;
     },
     async jwt({ token }) {
@@ -19,6 +22,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       if (!user) return token;
 
       token.role = user.role;
+      token.resumeUrl = user.resumeUrl;
       return token;
     },
   },
