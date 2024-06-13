@@ -1,4 +1,5 @@
 import { getUser } from "@/lib/get-logged-in-user";
+import { prisma } from "@/lib/prisma";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
@@ -23,7 +24,14 @@ export const ourFileRouter = {
       // This code RUNS ON YOUR SERVER after upload
 
       console.log("Upload complete for userId:", metadata.userId);
-      
+      await prisma.user.update({
+        where:{
+          id:metadata.userId
+        },
+        data:{
+          resumeUrl:file.url
+        }
+      })
       console.log("file url", file.url);
 
       // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
