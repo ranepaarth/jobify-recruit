@@ -29,7 +29,7 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
   return (
     <Card className="shadow-md relative">
       <CardHeader>
-        <CardTitle className="text-xl">{job.title}</CardTitle>
+        <CardTitle className="text-xl w-[70%]">{job.title}</CardTitle>
         <CardDescription>{job.companyName}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
