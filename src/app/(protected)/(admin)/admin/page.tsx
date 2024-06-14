@@ -7,10 +7,10 @@ const AdminPage = async () => {
         Welcome Admin
       </h4>
       <div className="text-center text-nowrap">
-        <h2 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold text-nowrap">
+        <h2 className="text-2xl sm:text-4xl lg:text-6xl font-extrabold text-nowrap">
           Want to hire a new candidate?
         </h2>
-        <h4 className="font-semibold text-neutral-600 text-xl sm:text-2xl">
+        <h4 className="font-semibold text-neutral-600 text-lg sm:text-2xl">
           <Link
             href={"/admin/job-categories"}
             className="px-2 text-blue-500 hover:underline"
