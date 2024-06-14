@@ -1,7 +1,17 @@
+import { getUser } from "@/lib/get-logged-in-user";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const Home = () => {
+const Home = async () => {
+  const user = await getUser();
+  if (user.role === "USER") {
+    redirect("/user");
+  }
+  if (user.role === "ADMIN") {
+    redirect("/admin");
+  }
+  
   return (
     <main className="w-full max-w-screen-lg mx-auto py-8 px-4 min-h-screen flex flex-col">
       <h2 className="text-2xl font-extrabold text-neutral-800 md:text-4xl">
