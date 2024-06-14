@@ -3,7 +3,7 @@
 import { JobPost } from "@prisma/client";
 import { BriefcaseBusiness, ExternalLink, Users2 } from "lucide-react";
 import moment from "moment";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "../ui/button";
 import {
@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import { experience } from "./admin/admin-job-listing-form";
+import JobSkills from "./job-skills";
 
 type SingleJobCardProps = {
   job: JobPost;
@@ -23,9 +24,12 @@ type SingleJobCardProps = {
 const SingleJobCard = ({ job }: SingleJobCardProps) => {
   const jobExp = experience.filter((exp) => exp.value === job.experience)[0];
   const pathname = usePathname();
-  const skills = job.skills.split(",").filter((skill) => skill.trim().length > 0);
+  const router = useRouter();
 
-  console.log(skills)
+  const handleNavigate = () => {
+    router.replace(`/user/all-jobs/${job.id}`);
+  };
+
   return (
     <Card className="shadow-md relative">
       <CardHeader>
@@ -33,26 +37,8 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
         <CardDescription>{job.companyName}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
-        <p className="text-neutral-600 font-medium line-clamp-2 mb-4">
-          {job.jobDesc}
-        </p>
-        <div className="my-4 flex flex-col gap-2">
-          <span className="font-medium text-sm">Skills Required:</span>
-          <div className="space-x-2">
-            {skills.map(
-              (skill, index) =>
-                skill.length > 0 && (
-                  <span
-                    key={index}
-                    className="text-sm px-2 py-2 border shadow-sm rounded-sm bg-blue-50 text-blue-700"
-                  >
-                    {skill.trim()}
-                  </span>
-                )
-            )}
-          </div>
-        </div>
-        <div className="flex gap-4 items-center text-sm text-neutral-600">
+        <JobSkills jobSkills={job.skills} />
+        <div className="flex gap-2 items-center text-sm text-neutral-600 mt-2">
           <span className="text-neutral-600">💸{job.salary}</span>
           <span>•</span>
           <span className="flex items-center gap-1 font-medium text-neutral-500/80">
@@ -63,8 +49,11 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
             {job.type}
           </span>
         </div>
-        {!pathname.startsWith("/admin") && (
-          <Button className="flex items-center gap-4 bg-blue-900 mt-6 hover:bg-blue-950">
+        {pathname.startsWith("/user") && (
+          <Button
+            className="flex items-center gap-4 bg-blue-900 mt-6 hover:bg-blue-950"
+            onClick={handleNavigate}
+          >
             Apply now <ExternalLink className="w-4 h-4" />
           </Button>
         )}
@@ -84,3 +73,8 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
 };
 
 export default SingleJobCard;
+{
+  /* <p className="text-neutral-600 font-medium line-clamp-2 mb-4">
+          {job.jobDesc}
+        </p> */
+}
