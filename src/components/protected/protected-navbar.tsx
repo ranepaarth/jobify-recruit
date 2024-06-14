@@ -1,8 +1,8 @@
 import { getUser } from "@/lib/get-logged-in-user";
 import React from "react";
 import Logo from "./logo";
-import LogoutButton from "./logout-button";
 import NavLink from "./nav-link";
+import UserAvatarButton from "./user-avatar-button";
 
 const ProtectedNavbar = async () => {
   const user = await getUser();
@@ -20,10 +20,9 @@ const ProtectedNavbar = async () => {
           <>
             <NavLink href="/user/all-jobs" label="All Jobs" />
             <NavLink href="/user/applied" label="Applied" />
-            <NavLink href="/user/upload" label="Resume" />
           </>
         )}
-        <LogoutButton
+        <UserAvatarButton
           userEmail={user.email as string}
           userName={user.name as string}
         />

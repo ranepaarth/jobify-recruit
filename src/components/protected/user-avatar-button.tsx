@@ -9,12 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { File, LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 
-const LogoutButton = ({
+const UserAvatarButton = ({
   userEmail,
   userName,
 }: {
@@ -43,6 +44,12 @@ const LogoutButton = ({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <DropdownMenuItem>
+          <Link href={"/user/upload"} className="flex items-center w-full">
+            <File className="h-4 w-4 mr-2" />
+            Resume
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem className="text-destructive">
           <button
             className="flex items-center w-full"
             onClick={handleButtonClick}
@@ -56,7 +63,4 @@ const LogoutButton = ({
   );
 };
 
-export default LogoutButton;
-{
-  /* */
-}
+export default UserAvatarButton;
