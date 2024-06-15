@@ -8,7 +8,11 @@ interface FormButtonProps {
 
 const FormButton = ({ buttonLabel, isPending }: FormButtonProps) => {
   return (
-    <Button type="submit" className="w-full" disabled={isPending} >
+    <Button
+      type="submit"
+      className="w-full bg-blue-900 hover:bg-blue-950"
+      disabled={isPending}
+    >
       {isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : buttonLabel}
     </Button>
   );
