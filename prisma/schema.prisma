@@ -28,6 +28,8 @@ model User {
   role          String    @default("USER")
   resumeUrl     String?   @default("")
 
+  jobsApplied JobPostUser[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -52,7 +54,22 @@ model JobPost {
   experience String
 
 
+
+
+  users JobPostUser[]
+
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
 
+model JobPostUser {
+  id String @id @default(cuid())
+  jobPostId String  
+  userId  String  
+
+  jobPost JobPost @relation(fields: [jobPostId],references: [id])
+  user User @relation(fields: [userId],references: [id])
+
+  @@unique([userId,jobPostId])
 }
