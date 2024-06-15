@@ -73,17 +73,28 @@ export const CreateJobPostSchema = z.object({
   type: z.string({
     required_error: "Select a Job type",
   }),
-  salary: z.string({
-    required_error: "",
-  }).min(4,{
-    message:"Provide the salary for this job"
-  }),
-  skills: z.string({
-    required_error: "",
-  }).min(4,{
-    message:"Provide relevant skills (Comma seperated)"
-  }),
+  salary: z
+    .string({
+      required_error: "",
+    })
+    .min(4, {
+      message: "Provide the salary for this job",
+    }),
+  skills: z
+    .string({
+      required_error: "",
+    })
+    .min(4, {
+      message: "Provide relevant skills (Comma seperated)",
+    }),
   experience: z.string({
     required_error: "",
   }),
+});
+
+export const JobApplicationSchema = z.object({
+  resumeUrl: z.string().endsWith(".pdf"),
+  jobId:z.string({
+    required_error:"Provide the job ID!"
+  })
 });
