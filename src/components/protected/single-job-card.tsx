@@ -1,8 +1,9 @@
 "use client";
 
 import { JobPost } from "@prisma/client";
-import { BriefcaseBusiness, ExternalLink, Users2 } from "lucide-react";
+import { BriefcaseBusiness, Users2 } from "lucide-react";
 import moment from "moment";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "../ui/button";
@@ -15,29 +16,41 @@ import {
   CardTitle,
 } from "../ui/card";
 import { experience } from "./admin/admin-job-listing-form";
-import JobSkills from "./job-skills";
 
 type SingleJobCardProps = {
   job: JobPost;
+  userId: string;
+  hasApplied: boolean;
 };
 
 const SingleJobCard = ({ job }: SingleJobCardProps) => {
   const jobExp = experience.filter((exp) => exp.value === job.experience)[0];
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handleNavigate = () => {
-    router.replace(`/user/all-jobs/${job.id}`);
+  const router = useRouter();
+  const handleClick = () => {
+    if (pathname.startsWith("/user"))
+      router.push(`/user/all-jobs?jobId=${job.id}`);
+    if (pathname.startsWith("/admin")) return;
   };
 
   return (
-    <Card className="shadow-md relative">
+    <Card
+      className="shadow-md relative cursor-pointer hover:border-blue-900"
+      onClick={handleClick}
+    >
       <CardHeader>
-        <CardTitle className="text-xl w-[70%]">{job.title}</CardTitle>
+        <CardTitle className="text-lg w-[70%] ">
+          <Link
+            className="px-0 text-lg font-semibold text-start hover:underline"
+            href={`/user/all-jobs?jobId=${job.id}`}
+          >
+            {job.title}
+          </Link>
+        </CardTitle>
         <CardDescription>{job.companyName}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
-        <JobSkills jobSkills={job.skills} />
         <div className="flex gap-2 items-center text-sm text-neutral-600 mt-2">
           <span className="text-neutral-600">💸{job.salary}</span>
           <span>•</span>
@@ -45,18 +58,10 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
             <BriefcaseBusiness className="w-4 h-4" />
             {jobExp.expInYear} Years
           </span>
-          <span className="text-xs px-2 py-1 bg-blue-100 font-medium text-blue-600 rounded-sm w-fit absolute top-6 right-6">
+          <span className="text-[10px] px-2 py-0.5 bg-blue-100 font-medium text-blue-600 rounded-sm w-fit absolute top-6 right-6">
             {job.type}
           </span>
         </div>
-        {pathname.startsWith("/user") && (
-          <Button
-            className="flex items-center gap-4 bg-blue-900 mt-6 hover:bg-blue-950"
-            onClick={handleNavigate}
-          >
-            Apply now <ExternalLink className="w-4 h-4" />
-          </Button>
-        )}
         {pathname.startsWith("/admin") && (
           <Button className="flex items-center gap-4 bg-blue-900 mt-6 hover:bg-blue-950">
             View Applicants <Users2 className="w-5 h-5" />
@@ -73,8 +78,3 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
 };
 
 export default SingleJobCard;
-{
-  /* <p className="text-neutral-600 font-medium line-clamp-2 mb-4">
-          {job.jobDesc}
-        </p> */
-}
