@@ -27,10 +27,10 @@ const JobApplication = ({
   hasApplied: boolean;
 }) => {
   const { step, next, back, isFirstStep, isLastStep } = useMultiStepForm([
-    <UploadResumeForm resumeUrl={resumeUrl} />,
-    <AboutJob job={job} />,
+    <UploadResumeForm resumeUrl={resumeUrl} key="upload-resume-form" />,
+    <AboutJob job={job} key="about-job" />,
   ]);
-  
+
   const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
