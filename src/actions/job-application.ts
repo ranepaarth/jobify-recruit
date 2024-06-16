@@ -1,9 +1,13 @@
 "use server";
 
+import { EmailToAdmin } from "@/components/email/email-to-admin";
+import { EmailToUser } from "@/components/email/email-to-user";
 import { getUserById } from "@/lib/db-users";
 import { getUser } from "@/lib/get-logged-in-user";
+import { transporter } from "@/lib/nodemailer";
 import { prisma } from "@/lib/prisma";
 import { JobApplicationSchema } from "@/schema/zod-schema";
+import { render } from "@react-email/render";
 import { z } from "zod";
 
 export const applyToJob = async (
@@ -63,7 +67,40 @@ export const applyToJob = async (
     },
   });
 
-  // TODO: Send Email to admin and user, sender will be myself===> I will send mail to both admin and applicant
+  const emailToUser = render(
+    EmailToUser({
+      job,
+      jobLink: `http://localhost:3000/user/all-jobs?jobId=${job.id}`,
+    })
+  );
+  const emailToAdmin = render(
+    EmailToAdmin({
+      applicant,
+      jobTitle: job.title,
+      companyName: job.companyName,
+    })
+  );
+
+  try {
+    const info = await transporter.sendMail({
+      to: [applicant.email],
+      subject: `Jobify Application: ${job.title}`,
+      text: "Hello",
+      html: emailToUser,
+    });
+
+    const adminInfo = await transporter.sendMail({
+      to: ["paarthrane9@gmail.com"],
+      subject: `New Application: ${job.title}`,
+      text: "Hello",
+      html: emailToAdmin,
+    });
+
+    console.log("Message sent: %s", info.messageId);
+    console.log("Admin notification sent: %s", adminInfo.messageId);
+  } catch (error) {
+    console.log(error);
+  }
 
   return {
     success: "Job Application successful!",
