@@ -17,13 +17,28 @@ import {
 } from "../ui/card";
 import { experience } from "./admin/admin-job-listing-form";
 
+const applicationStatus = {
+  Applied: {
+    className: "bg-blue-50 text-blue-900",
+    label: "Applied",
+  },
+  Accepted: {
+    className: "bg-emerald-50 text-emerald-600",
+    label: "Viewed",
+  },
+  Rejected: {
+    className: "bg-red-50 text-red-500",
+    label: "Not Selected",
+  },
+};
+
 type SingleJobCardProps = {
   job: JobPost;
   userId: string;
-  hasApplied: boolean;
+  hasApplied?: "Applied" | "Accepted" | "Rejected";
 };
 
-const SingleJobCard = ({ job }: SingleJobCardProps) => {
+const SingleJobCard = ({ job, hasApplied }: SingleJobCardProps) => {
   const jobExp = experience.filter((exp) => exp.value === job.experience)[0];
   const pathname = usePathname();
 
@@ -40,7 +55,14 @@ const SingleJobCard = ({ job }: SingleJobCardProps) => {
       onClick={handleClick}
     >
       <CardHeader>
-        <CardTitle className="text-lg w-[70%] ">
+        <CardTitle className="text-lg w-[70%] flex flex-col gap-1">
+          {hasApplied && (
+            <span
+              className={`${applicationStatus[hasApplied].className} font-bold px-2 py-1 text-xs w-fit rounded tracking-normal`}
+            >
+              {applicationStatus[hasApplied].label}
+            </span>
+          )}
           <Link
             className="px-0 text-lg font-semibold text-start hover:underline"
             href={`/user/all-jobs?jobId=${job.id}`}
