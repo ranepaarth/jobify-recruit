@@ -63,10 +63,17 @@ model JobPost {
   updatedAt DateTime @updatedAt
 }
 
+enum ApplicationStatus {
+  Applied
+  Accepted
+  Rejected
+}
+
 model JobPostUser {
   id String @id @default(cuid())
   jobPostId String  
-  userId  String  
+  userId  String
+  applicationStatus ApplicationStatus @default(Applied)  
 
   jobPost JobPost @relation(fields: [jobPostId],references: [id])
   user User @relation(fields: [userId],references: [id])
