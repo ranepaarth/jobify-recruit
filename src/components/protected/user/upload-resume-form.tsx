@@ -4,18 +4,21 @@ import { UploadButton } from "@/lib/uploadthing";
 import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
 import "@cyntler/react-doc-viewer/dist/index.css";
 import "@react-pdf-viewer/core/lib/styles/index.css";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 const UploadResumeForm = ({ resumeUrl }: { resumeUrl: string }) => {
   const docs = [{ uri: resumeUrl }];
-  const [file, setFile] = useState<string>(resumeUrl as string);
+
+  const router = useRouter();
 
   return (
     <div className="w-full flex flex-col items-center gap-2 border border-blue-800 p-4 rounded-md">
       <h3 className="text-xl font-bold text-blue-800 mb-8 border-b-blue-900 border-b-2">
         Your Resume
       </h3>
-      {file && (
+
+      {resumeUrl && (
         <div className="w-full max-w-full ">
           <DocViewer
             documents={docs}
@@ -34,12 +37,12 @@ const UploadResumeForm = ({ resumeUrl }: { resumeUrl: string }) => {
           />
         </div>
       )}
+
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           // Do something with the response
-          console.log("Files: ", res);
-          setFile(res[0].url);
+          router.refresh();
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {

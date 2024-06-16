@@ -6,7 +6,7 @@ const UploadPage = async () => {
   const user = await getUser();
   return (
     <div className="w-full max-w-[600px]">
-      {user.resumeUrl && <UploadResumeForm resumeUrl={user.resumeUrl}/>}
+      <UploadResumeForm resumeUrl={user.resumeUrl} />
     </div>
   );
 };
