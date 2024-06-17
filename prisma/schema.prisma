@@ -79,6 +79,7 @@ model JobPostUser {
   jobPostId String  
   userId  String
   applicationStatus ApplicationStatus @default(Applied)  
+  dateApplied DateTime @default(now())
 
   jobPost JobPost @relation(fields: [jobPostId],references: [id])
   user User @relation(fields: [userId],references: [id])
