@@ -13,6 +13,9 @@ const AppliedPage = async () => {
     include: {
       jobPost: true,
     },
+    orderBy: {
+      dateApplied: "asc",
+    },
   });
 
   if (appliedToJobs.length <= 0) {
