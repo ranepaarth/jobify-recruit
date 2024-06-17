@@ -25,7 +25,7 @@ const AllJobsPage = async ({ searchParams }: AllJobsPageProps) => {
   if (job) {
     const hasApplied = await userHasApplied(user.id, job.id);
     return (
-      <div className="w-full max-w-[500px] flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <AboutJob job={job} />
         <JobApplyButton jobId={job.id} hasApplied={hasApplied} />
       </div>

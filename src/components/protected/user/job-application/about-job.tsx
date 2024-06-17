@@ -6,12 +6,13 @@ import React from "react";
 import { experience } from "../../admin/admin-job-listing-form";
 import JobSkills from "../../job-skills";
 import DescriptionInfo from "./job-desc";
+import { getRequiredJobExperience } from "@/lib/get-required-job-exp";
 
 const AboutJob = ({ job }: { job: JobPost }) => {
-  const jobExp = experience.filter((exp) => exp.value === job.experience)[0];
+  const jobExp = getRequiredJobExperience(job.experience);
 
   return (
-    <div className="text-neutral-800 max-w-screen-md">
+    <div className="text-neutral-800 max-w-[500px] w-full">
       <CardContent>
         <h4 className="text-2xl font-semibold mb-1">{job.title}</h4>
         <p className="text-neutral-600 text-sm">{job.companyName}</p>
