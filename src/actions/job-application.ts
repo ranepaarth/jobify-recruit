@@ -71,6 +71,7 @@ export const applyToJob = async (
     EmailToUser({
       job,
       jobLink: `http://localhost:3000/user/all-jobs?jobId=${job.id}`,
+      liveLink: process.env.LIVE_LINK!,
     })
   );
   const emailToAdmin = render(
@@ -78,6 +79,7 @@ export const applyToJob = async (
       applicant,
       jobTitle: job.title,
       companyName: job.companyName,
+      liveLink: process.env.LIVE_LINK!,
     })
   );
 
@@ -90,7 +92,7 @@ export const applyToJob = async (
     });
 
     const adminInfo = await transporter.sendMail({
-      to: ["paarthrane9@gmail.com"],
+      to: job.adminEmail,
       subject: `New Application: ${job.title}`,
       text: "Hello",
       html: emailToAdmin,
