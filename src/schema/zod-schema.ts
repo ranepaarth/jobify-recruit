@@ -1,3 +1,4 @@
+import { ApplicationStatus } from "@prisma/client";
 import { z } from "zod";
 export const LoginSchema = z.object({
   email: z
@@ -94,7 +95,14 @@ export const CreateJobPostSchema = z.object({
 
 export const JobApplicationSchema = z.object({
   resumeUrl: z.string().endsWith(".pdf"),
-  jobId:z.string({
-    required_error:"Provide the job ID!"
-  })
+  jobId: z.string({
+    required_error: "Provide the job ID!",
+  }),
+});
+
+export const UpdateApplicationStatusSchema = z.object({
+  status: z.nativeEnum(ApplicationStatus),
+  rejectMessage: z.string({
+    required_error: "Mention the reason for not selecting the application",
+  }),
 });
