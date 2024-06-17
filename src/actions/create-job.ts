@@ -1,5 +1,6 @@
 "use server";
 
+import { getUser } from "@/lib/get-logged-in-user";
 import { prisma } from "@/lib/prisma";
 import { CreateJobPostSchema } from "@/schema/zod-schema";
 import { revalidatePath } from "next/cache";
@@ -9,6 +10,7 @@ export const createJobPostAction = async (
   values: z.infer<typeof CreateJobPostSchema>
 ) => {
   const validatedFields = CreateJobPostSchema.safeParse(values);
+  const admin = await getUser();
 
   if (!validatedFields.success) {
     return {
@@ -51,6 +53,7 @@ export const createJobPostAction = async (
       title,
       type,
       categoryId: jobCategory.id,
+      adminEmail: admin.email!,
     },
   });
 
@@ -60,7 +63,7 @@ export const createJobPostAction = async (
     };
   }
 
-  revalidatePath('/admin/jobs')
+  revalidatePath("/admin/jobs");
 
   return {
     success: "Job post created Successfully",

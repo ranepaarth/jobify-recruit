@@ -28,6 +28,8 @@ model User {
   role          String    @default("USER")
   resumeUrl     String?   @default("")
 
+  jobPost JobPost[]
+
   jobsApplied JobPostUser[]
 
   createdAt DateTime @default(now())
@@ -52,6 +54,9 @@ model JobPost {
   salary String
   skills String
   experience String
+  
+  adminEmail String @unique
+  postedBy User @relation(fields: [adminEmail],references: [email])
 
 
 
