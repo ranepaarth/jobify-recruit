@@ -3,14 +3,11 @@
 import { CardContent } from "@/components/ui/card";
 import { JobPost } from "@prisma/client";
 import React from "react";
-import { experience } from "../../admin/admin-job-listing-form";
 import JobSkills from "../../job-skills";
+import RequiredJobExp from "../../required-job-exp";
 import DescriptionInfo from "./job-desc";
-import { getRequiredJobExperience } from "@/lib/get-required-job-exp";
 
 const AboutJob = ({ job }: { job: JobPost }) => {
-  const jobExp = getRequiredJobExperience(job.experience);
-
   return (
     <div className="text-neutral-800 max-w-[500px] w-full">
       <CardContent>
@@ -47,7 +44,9 @@ const AboutJob = ({ job }: { job: JobPost }) => {
         <JobSkills jobSkills={job.skills} />
         <div className="flex gap-2">
           <span className="font-medium text-sm mb-1">Experience:</span>
-          <p className="text-sm font-light">{jobExp.expInYear} Years</p>
+          <p className="text-sm font-light">
+            <RequiredJobExp experienceReq={job.experience} /> Years
+          </p>
         </div>
       </CardContent>
     </div>

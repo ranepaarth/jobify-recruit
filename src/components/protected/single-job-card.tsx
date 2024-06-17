@@ -15,16 +15,16 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { experience } from "./admin/admin-job-listing-form";
+import RequiredJobExp from "./required-job-exp";
 
-const applicationStatus = {
+export const applicationStatus = {
   Applied: {
     className: "bg-blue-50 text-blue-900",
     label: "Applied",
   },
   Accepted: {
     className: "bg-emerald-50 text-emerald-600",
-    label: "Viewed",
+    label: "Selected",
   },
   Rejected: {
     className: "bg-red-50 text-red-500",
@@ -39,14 +39,14 @@ type SingleJobCardProps = {
 };
 
 const SingleJobCard = ({ job, hasApplied }: SingleJobCardProps) => {
-  const jobExp = experience.filter((exp) => exp.value === job.experience)[0];
   const pathname = usePathname();
 
   const router = useRouter();
   const handleClick = () => {
     if (pathname.startsWith("/user"))
       router.push(`/user/all-jobs?jobId=${job.id}`);
-    if (pathname.startsWith("/admin")) return;
+    if (pathname.startsWith("/admin"))
+      router.push(`/admin/jobs/applicants?jobId=${encodeURIComponent(job.id)}`);
   };
 
   return (
@@ -58,7 +58,7 @@ const SingleJobCard = ({ job, hasApplied }: SingleJobCardProps) => {
         <CardTitle className="text-lg w-[70%] flex flex-col gap-1">
           {hasApplied && (
             <span
-              className={`${applicationStatus[hasApplied].className} font-bold px-2 py-1 text-xs w-fit rounded tracking-normal`}
+              className={`${applicationStatus[hasApplied]?.className} font-bold px-2 py-1 text-xs w-fit rounded tracking-normal`}
             >
               {applicationStatus[hasApplied].label}
             </span>
@@ -78,7 +78,7 @@ const SingleJobCard = ({ job, hasApplied }: SingleJobCardProps) => {
           <span>•</span>
           <span className="flex items-center gap-1 font-medium text-neutral-500/80">
             <BriefcaseBusiness className="w-4 h-4" />
-            {jobExp.expInYear} Years
+            <RequiredJobExp experienceReq={job.experience} /> Years
           </span>
           <span className="text-[10px] px-2 py-0.5 bg-blue-100 font-medium text-blue-600 rounded-sm w-fit absolute top-6 right-6">
             {job.type}
