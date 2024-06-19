@@ -73,7 +73,7 @@ export const applyToJob = async (
   const emailToUser = render(
     EmailToUser({
       job,
-      jobLink: `http://localhost:3000/user/all-jobs?jobId=${job.id}`,
+      jobLink: `${process.env.AUTH_URL}/user/all-jobs?jobId=${job.id}`,
       liveLink: process.env.LIVE_LINK!,
     })
   );
