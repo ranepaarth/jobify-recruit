@@ -5,10 +5,10 @@ import React from "react";
 
 const Home = async () => {
   const user = await getUser();
-  if (user?.role === "USER") {
+  if (user?.role === "User") {
     redirect("/user");
   }
-  if (user?.role === "ADMIN") {
+  if (user?.role === "Admin") {
     redirect("/admin");
   }
 

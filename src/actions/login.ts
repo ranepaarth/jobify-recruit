@@ -33,14 +33,14 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   try {
-    if (user.role === "ADMIN") {
+    if (user.role === "Admin") {
       await signIn("credentials", {
         email,
         password,
         redirectTo: "/admin",
       });
     }
-    if (user.role === "USER") {
+    if (user.role === "User") {
       await signIn("credentials", {
         email,
         password,

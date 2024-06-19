@@ -5,7 +5,7 @@ import React from "react";
 const Logo = async () => {
   const user = await getUser();
 
-  const isAdmin = user.role === "ADMIN";
+  const isAdmin = user.role === "Admin";
 
   return (
     <Link href={`${isAdmin ? "/admin" : "/user"}`}>

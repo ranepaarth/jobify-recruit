@@ -4,7 +4,7 @@ import React from "react";
 
 const UserLayout = async ({ children }: { children: React.ReactNode }) => {
   const user = await getUser();
-  if (user.role === "ADMIN") {
+  if (user.role === "Admin") {
     redirect("/admin");
   }
   return <>{children}</>;

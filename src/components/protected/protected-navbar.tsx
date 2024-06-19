@@ -10,13 +10,13 @@ const ProtectedNavbar = async () => {
     <nav className="p-4 w-full flex items-center justify-between border-b shadow-sm">
       <Logo />
       <div className="flex items-center gap-2">
-        {user.role === "ADMIN" && (
+        {user.role === "Admin" && (
           <>
             <NavLink href="/admin/jobs" label="Jobs" />
             <NavLink href="/admin/job-categories" label="Categories" />
           </>
         )}
-        {user.role === "USER" && (
+        {user.role === "User" && (
           <>
             <NavLink href="/user/all-jobs" label="All Jobs" />
             <NavLink href="/user/applied" label="Applied" />
