@@ -55,8 +55,8 @@ model JobPost {
   skills String
   experience String
   
-  adminEmail String @unique
-  postedBy User @relation(fields: [adminEmail],references: [email])
+  adminId String @unique
+  postedBy User @relation(fields: [adminId],references: [id])
 
 
 
