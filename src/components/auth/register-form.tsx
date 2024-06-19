@@ -3,12 +3,14 @@ import { registerAction } from "@/actions/register";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { RegisterSchema } from "@/schema/zod-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState, useTransition } from "react";
@@ -18,6 +20,7 @@ import CardWrapper from "../card-wrapper";
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
 import FormButton from "./form-button";
+
 const RegisterForm = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
@@ -28,6 +31,7 @@ const RegisterForm = () => {
       name: "",
       email: "",
       password: "",
+      isAdmin: false,
     },
   });
 
@@ -103,6 +107,29 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
+            <div>
+              <h4 className="mb-2 text-sm font-medium">Be an Employer</h4>
+              <FormField
+                control={form.control}
+                name="isAdmin"
+                render={({ field }) => (
+                  <FormItem className="flex items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                      <FormLabel>Register as an employer</FormLabel>
+                      <FormDescription className="text-xs">
+                        Employers post a job - your next hire is here
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormSuccess success={success as string} />
             <FormError error={error as string} />
             <FormButton buttonLabel="Create account" isPending={isPending} />

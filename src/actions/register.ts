@@ -17,7 +17,7 @@ export const registerAction = async (
     };
   }
 
-  const { email, name, password } = validatedFields.data;
+  const { email, name, password, isAdmin } = validatedFields.data;
 
   const existingUser = await getUserByEmail(email);
 
@@ -28,12 +28,14 @@ export const registerAction = async (
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+  const role = isAdmin ? "Admin" : "User";
 
   const user = await prisma.user.create({
     data: {
       name,
       email,
       password: hashedPassword,
+      role,
     },
   });
 

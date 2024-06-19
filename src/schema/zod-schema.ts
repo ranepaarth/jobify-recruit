@@ -29,6 +29,7 @@ export const RegisterSchema = z.object({
     .max(16, {
       message: "Password must be between 4 and 16 characters!",
     }),
+  isAdmin: z.boolean().default(false),
 });
 
 export const CreateCategorySchema = z.object({
