@@ -39,7 +39,11 @@ export const updateApplicationStatus = async (
       id: jobApplicationId,
     },
     include: {
-      jobPost: true,
+      jobPost: {
+        include:{
+          postedBy:true
+        }
+      },
       user: true,
     },
   });
@@ -65,7 +69,7 @@ export const updateApplicationStatus = async (
       jobTitle: jobApplication.jobPost.title,
       status,
       companyName: jobApplication.jobPost.companyName,
-      adminEmail: jobApplication.jobPost.adminEmail,
+      adminEmail: jobApplication.jobPost.postedBy.email,
       reason: rejectMessage,
       liveLink: process.env.LIVE_LINK!,
     })

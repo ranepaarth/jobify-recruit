@@ -37,6 +37,9 @@ export const applyToJob = async (
     where: {
       id: jobId,
     },
+    include:{
+      postedBy:true
+    }
   });
 
   if (!job) {
@@ -92,7 +95,7 @@ export const applyToJob = async (
     });
 
     const adminInfo = await transporter.sendMail({
-      to: job.adminEmail,
+      to: job.postedBy.email,
       subject: `New Application: ${job.title}`,
       text: "Hello",
       html: emailToAdmin,

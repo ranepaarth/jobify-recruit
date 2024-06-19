@@ -12,6 +12,12 @@ export const createJobPostAction = async (
   const validatedFields = CreateJobPostSchema.safeParse(values);
   const admin = await getUser();
 
+  if (!admin) {
+    return {
+      error: "Please Log in to continue!",
+    };
+  }
+
   if (!validatedFields.success) {
     return {
       error: "Invalid fields!",
@@ -53,7 +59,7 @@ export const createJobPostAction = async (
       title,
       type,
       categoryId: jobCategory.id,
-      adminEmail: admin.email!,
+      adminId: admin.id,
     },
   });
 
