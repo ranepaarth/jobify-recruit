@@ -25,6 +25,7 @@ const ProtectedNavbar = async () => {
         <UserAvatarButton
           userEmail={user.email as string}
           userName={user.name as string}
+          userRole={user.role}
         />
       </div>
     </nav>

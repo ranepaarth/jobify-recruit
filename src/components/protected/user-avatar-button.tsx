@@ -14,13 +14,16 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
+import { UserRole } from "@prisma/client";
 
 const UserAvatarButton = ({
   userEmail,
   userName,
+  userRole
 }: {
   userEmail: string;
   userName: string;
+  userRole:UserRole
 }) => {
   const firstName = userName.slice(0, 1);
   const handleButtonClick = () => {
@@ -43,12 +46,12 @@ const UserAvatarButton = ({
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
-        <DropdownMenuItem>
+        {userRole === "User" && <DropdownMenuItem>
           <Link href={"/user/upload"} className="flex items-center w-full">
             <File className="h-4 w-4 mr-2" />
             Resume
           </Link>
-        </DropdownMenuItem>
+        </DropdownMenuItem>}
         <DropdownMenuItem className="text-destructive">
           <button
             className="flex items-center w-full"
