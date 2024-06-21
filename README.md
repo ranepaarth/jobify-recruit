@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# <div>Jobify Recruit 💼</div>
 
-## Getting Started
+✅ A Full stack Job Posting web application built by a job-seeker 😜
 
-First, run the development server:
+🚀[View Demo](https://jobify-recruit.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<details>
+<summary>Authentication</summary>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+</details>
 
-## Learn More
+<details>
+<summary>Create a Job Post</summary>
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+</details>
 
-## Deploy on Vercel
+<details>
+<summary>Apply to a Job</summary>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+</details>
+
+<details>
+<summary>Job application - Accept</summary>
+
+
+
+</details>
+
+<details>
+<summary>Job application - Reject</summary>
+
+
+
+</details>
+
+</br>
+
+## Features
+
+- Secure Authentication (credentials)
+- Role Based access control (user & admin)
+- Create job categories and job posts (admin)
+- Upload Resume (user)
+- Apply to a job post (user)
+- Update the job application (admin)
+- Email functionality
+
+## Tech Stack
+
+- [Next.js / TailwindCSS](https://nextjs.org/docs/getting-started/installation)
+- [Auth.js](https://authjs.dev/getting-started/migrating-to-v5)
+- [Prisma ORM](https://www.prisma.io/docs/orm/overview/introduction/what-is-prisma)
+- [PostgreSQL DB](https://neon.tech/)
+- [Uploadthing](https://docs.uploadthing.com/)
+- [shadcn/ui](https://ui.shadcn.com/docs/installation/next)
+
+## Installation
+
+1. Clone the repository: `git clone https://github.com/ranepaarth/jobify-recruit.git`
+2. Navigate to the project directory: `cd jobify-recruit`
+3. Install the dependencies: `npm install`
+
+### Environment Variables
+
+Create a copy of .env.sample and name the file `.env`
+
+## Usage
+
+1. Generate prisma client using `npx prisma generate` and push your updated models to the database using `npx prisma db push`
+2. Start development server `npm run dev`
+3. Get your prisma studio up and running using `npx prisma studio` command to view the changes made and visit [http://localhost:5555](http://localhost:5555) to start editing in your database.
+4. Open your Browser and visit [http://localhost:3000](http://localhost:3000) to start developing.
+
+## Concepts covered
+
+- [x] NextJs 14 App routing & SSR
+- [x] Auth.js Authentication
+- [x] Extending User sessions
+- [x] Server Actions
+- [x] Resume file upload
+- [x] Email Notifications
+- [ ] Forgot / reset password
