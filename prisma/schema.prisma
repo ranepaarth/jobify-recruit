@@ -48,14 +48,14 @@ model JobPost {
   title String
   companyDesc String
   jobDesc String
-  categoryId String @unique
+  categoryId String
   category JobCategory @relation(fields: [categoryId],references: [id])
   type String
   salary String
   skills String
   experience String
   
-  adminId String @unique
+  adminId String 
   postedBy User @relation(fields: [adminId],references: [id])
 
 
