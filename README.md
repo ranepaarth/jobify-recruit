@@ -7,33 +7,45 @@
 <details>
 <summary>Authentication</summary>
 
-
+https://github.com/ranepaarth/jobify-recruit/assets/130083485/717f1602-c6ec-48b9-a246-d7dffbeee4c3
 
 </details>
+
+
 
 <details>
 <summary>Create a Job Post</summary>
 
-
+https://github.com/ranepaarth/jobify-recruit/assets/130083485/ec07390c-4b9d-4853-8987-c6e86cd28ce2
 
 </details>
+
+
 
 <details>
 <summary>Apply to a Job</summary>
 
-
+https://github.com/ranepaarth/jobify-recruit/assets/130083485/fc3a3ddb-c83a-4b06-8d6f-4d402070ace6
 
 </details>
+
+
 
 <details>
 <summary>Job application - Accept</summary>
 
-
+https://github.com/ranepaarth/jobify-recruit/assets/130083485/f2e4cc0a-9eb3-43e6-9c96-931f9777e0b7
 
 </details>
 
+
+
 <details>
 <summary>Job application - Reject</summary>
+
+
+
+https://github.com/ranepaarth/jobify-recruit/assets/130083485/a7c87ee9-7773-4e7e-bc3c-474747b52469
 
 
 
